@@ -4,12 +4,12 @@ public class EmpWageBuilderUC1{
 	public static final int EMP_RATE_PER_HOUR=20;
 	public static final int NUM_OF_WORKING_DAYS=2;
 	public static final int MAX_HRS_IN_MONTH=10;
-	public static void main(String[] args){
+	public static int computeEmpWage(){
 
 	int empHrs=0;
         int totalEmpHrs=0;
 	int totalWorkingDays=0;
-	int totalEmpWage=0;
+	//int totalEmpWage=0;
 	while(totalEmpHrs<=MAX_HRS_IN_MONTH && totalWorkingDays<NUM_OF_WORKING_DAYS)
 	{
 		totalWorkingDays++;
@@ -27,7 +27,11 @@ public class EmpWageBuilderUC1{
 	totalEmpHrs+=empHrs;
 	System.out.println("DAy#: " + totalWorkingDays + "Emp Hr: " +empHrs);
 	}
-	totalEmpWage=totalEmpHrs*EMP_RATE_PER_HOUR;
+	int totalEmpWage=totalEmpHrs*EMP_RATE_PER_HOUR;
 	System.out.println("Total Emp Wage: " +totalEmpWage);
+	return totalEmpWage;
+}
+	public static void main(String[] args){
+	computeEmpWage();
 }
 }
