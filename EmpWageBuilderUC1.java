@@ -2,8 +2,20 @@ public class EmpWageBuilderUC1{
 	public static final int IS_PART_TIME=1;
 	public static final int IS_FULL_TIME=2;
 	
-	public static int computeEmpWage(String company, int empRatePerHour,int numOfWorkingDays,int maxHoursPerMonth){
+	private final String company;
+	private final int empRatePerHour;
+	private final int numOfWorkingDays;
+	private final int maxHoursPerMonth;
+	private int totalEmpWage;
 
+	public EmpWageBuilderUC1(String company,int empRatePerHour,int numOfWorkingDays, int maxHoursPerMonth){
+	this.company=company;
+	this.empRatePerHour=empRatePerHour;
+	this.numOfWorkingDays=numOfWorkingDays;
+	this.maxHoursPerMonth=maxHoursPerMonth;
+	}
+	
+	public void computeEmpWage(){
 	int empHrs=0;
         int totalEmpHrs=0;
 	int totalWorkingDays=0;
@@ -25,12 +37,19 @@ public class EmpWageBuilderUC1{
 	totalEmpHrs+=empHrs;
 	System.out.println("DAy#: " + totalWorkingDays + "Emp Hr: " +empHrs);
 	}
-	int totalEmpWage=totalEmpHrs*empRatePerHour;
-	System.out.println("Total Emp Wage for company: " +totalEmpWage);
-	return totalEmpWage;
+	totalEmpWage=totalEmpHrs*empRatePerHour;
+	
+}
+	@Override
+	public String toString(){
+	return "Total Emp Wage for Company: " +company+ " is: " + totalEmpWage;
 }
 	public static void main(String[] args){
-	computeEmpWage("JSW",20,2,10);
-	computeEmpWage("Vedanta",10,4,20);
+	EmpWageBuilderUC1 Lafarge=new EmpWageBuilderUC1("Lafarge",20,2,10);
+	EmpWageBuilderUC1 Jsk=new EmpWageBuilderUC1("JsK",10,4,20);
+	Lafarge.computeEmpWage();
+	System.out.println(Lafarge);
+	Jsk.computeEmpWage();
+	System.out.println(Jsk);
 }
 }
