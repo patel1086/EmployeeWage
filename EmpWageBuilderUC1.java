@@ -1,20 +1,26 @@
+import java.util.*;
+
 public class EmpWageBuilderUC1{
 
-	public static class ComputWage{
-	
+	public interface ComputeEmpWage{
 
+		public void addEmployeeWage(String company,int emprate,int wrkingdays, int wrkinghrs);
+		public void computeCompanyWage();
+	}
+	
+	public static class ComputWage{
 	public String company;
 	public int emprate;
-	public int wrkingdays;
-	public int wrkinghrs;
+	public int workingdays;
+	public int workinghours;
 	public int totalwage;
 
-	public ComputWage(String company,int emprate,int wrkingdays, int wrkinghrs)
+	public ComputWage(String company,int emprate,int workingdays, int workinghours)
 	{
 		this.company=company;
 		this.emprate=emprate;
-		this.wrkingdays=wrkingdays;
-		this.wrkinghrs=wrkinghrs;
+		this.workingdays=workingdays;
+		this.workinghours=workinghours;
 	}
 	public void setTotalWage(int totalwage)
 	{
@@ -26,39 +32,40 @@ public class EmpWageBuilderUC1{
 }
 }
 
-public static class EmpBuilder 
+public static class EmployeeBuild implements ComputeEmpWage
 {
 	static final int IS_FULL_TIME=2;
 	static final int IS_PART_TIME=1;
-	public ComputWage[] compwagearray;
+	public ArrayList<ComputWage> compempwagelist;
 	private int n=0;
 
-	public EmpBuilder()
+	public EmployeeBuild()
 	{
-		compwagearray= new ComputWage[5];
+		compempwagelist= new ArrayList();
 
 	}
 	public void addEmployeeWage(String company,int emprate,int wrkingdays, int wrkinghrs)
 	{
-		compwagearray[n]=new ComputWage(company,emprate,wrkingdays,wrkinghrs);
-		n++;
+		ComputWage c =new ComputWage(company,emprate,wrkingdays,wrkinghrs);
+		compempwagelist.add(c);
 	}
 	public void computeCompanyWage()
 	{
-		for(int i=0;i<n;i++)
+		for(int i=0;i<compempwagelist.size();i++)
 		{
-			compwagearray[i].setTotalWage(ComputeWage(compwagearray[i]));
-			System.out.println(compwagearray[i]);
+			ComputWage wage=compempwagelist.get(i);
+			wage.setTotalWage(this.ComputeWage(wage));
+			System.out.println(wage.totalwage);
 		}
 	}
 	public int ComputeWage(ComputWage pil)
 {
-	int employeehrs=0;
+	int employeehours=0;
 	int totalworkdays=0;
-	int totalemphrs=0;
+	int totalemphours=0;
+	//int totalwage=0;
 	
-	
-	while(totalemphrs<=pil.wrkinghrs&&totalworkdays<pil.wrkingdays)
+	while(totalemphours<=pil.workinghours&&totalworkdays<pil.workingdays)
 {
 	totalworkdays++;
 	int empcheck=(int) Math.floor(Math.random()*10)%3;
@@ -66,40 +73,24 @@ public static class EmpBuilder
 	switch(empcheck)
 	{
 		case 1:
-		employeehrs=4;
+		employeehours=4;
 		break;
 		case 2:
-		employeehrs=8;
+		employeehours=8;
 		break;
 		default:
-		employeehrs=0;
+		employeehours=0;
 	}
-
-
-	
-	totalemphrs+=employeehrs;
-	System.out.println("Emp hrs for day "+totalworkdays+" is: "+employeehrs);
-
-
+	totalemphours+=employeehours;
+	System.out.println("Employee hours for day "+totalworkdays+" is: "+employeehours);
 }
-	return totalemphrs* pil.emprate;
-
-
+	return totalemphours* pil.emprate;
 }
-
-
 }
-
-
-	
 public static void main(String[] args) {
-	
-	
-	EmpBuilder esr= new EmpBuilder();
-	esr.addEmployeeWage("Lafarge",20,2,10);
-	esr.addEmployeeWage("Shri",10,4,20);
-	esr.computeCompanyWage();
-
+	ComputeEmpWage patel= new EmployeeBuild();
+	patel.addEmployeeWage("Lafarge",20,2,10);
+	patel.addEmployeeWage("Shri",40,7,20);
+	patel.computeCompanyWage();
 }
-
 }
